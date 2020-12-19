@@ -5,10 +5,10 @@ public class EigenvectorCentrality extends DismissMethod{
     }
     @Override
     void dismiss() {
-        gragh.setEigenvectorAtribute();
         for(int i = 0;i < gragh.length ;i++){
+            gragh.setEigenvectorAtribute();
             int index  = findTheLargestNumberInArray(gragh.getDegreeAttribute());
-
+            gragh.deleteOneNote(i);
         }
     }
 }
