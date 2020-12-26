@@ -11,8 +11,10 @@ public class ClosenessCentrality extends DismissMethod{
                 break;
             }
             for (int j = 0;j < gragh.length; j++){
-                gragh.deleteOneSide(i,j);
+                gragh.deleteOneSide(index,j);
             }
+            gragh.setClosenessAtribute(index,0);
+           // gragh.prt();
         }
     }
 }

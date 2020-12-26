@@ -12,6 +12,7 @@ public class Gragh {
     private double[] BetweennessMatrix;
     private double[] pagerank;
     private int[] eigenvectorAtribute;
+    private double[] katzAtribute;
      Gragh(int number){
         this.length = number;
         for(int i = 1 ;i < number+1;i++){
@@ -147,6 +148,9 @@ public class Gragh {
              }
          }
     }
+    public void setClosenessAtribute(int i,int j){
+         closenessAtribute[i] = j;
+    }
     public int[] getClosenessAtribute(){
          return this.closenessAtribute;
     }
@@ -247,6 +251,36 @@ public class Gragh {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
+    public void setKatzAtribute(){
+        katzAtribute = new double[length];
+        double a = 0.1;
+        for (int i = 0;i < length;i++){
+            katzAtribute[i] = 1;
+        }
+        while (true){
+            Boolean judgement = false;
+            double[] pre_katz = Arrays.copyOf(katzAtribute,length);
+            for(int i = 0;i < length;i++){
+                double sum = 0;
+                for(int j = 0;j < length;j++) {
+                    sum += (double) collection.get(i).matrix[j]*pre_katz[j]*a;
+                }
+                sum+=pre_katz[i];
+            }
+            for(int i = 0; i < length;i++){
+                if(Math.abs((katzAtribute[i] - pre_katz[i])) < 0.05){
+                    judgement = true;
+                }
+                else judgement = false;
+            }
+            if(judgement){
+                break;
+            }
+        }
+    }
+    public double[] getKatzAtribute(){
+         return this.katzAtribute;
+    }
     public void standaroutput(){
         String path = "G:\\hatsune_miku\\src\\haha.txt";
         String line = System.getProperty("line.separator");
@@ -259,40 +293,82 @@ public class Gragh {
         try {
             FileWriter out = new FileWriter(f,true);
             for(int i = 0; i < length; i++){
+                if(collection.get(i).getDegree() == 0){
+                    continue;
+                }
                 for(int n = String.valueOf(i).length();n <digits;n++){
-                    out.write(0);
+                    out.write((char)48);
                 }
                 output = i;
                 out.write(String.valueOf(output));
             }
-            out.write(-1);
+            out.write((char)45);
+            out.write((char)49);
             for (int i = 0; i < length; i++) {
+                if(collection.get(i).getDegree() == 0){
+                    continue;
+                }
                 for (int j = i; j < length; j++) {
                     if(collection.get(i).matrix[j] > 0) {
                         output = i;
                         for(int n = String.valueOf(i).length();n <digits;n++){
-                            out.write(0);
+                            out.write((char)48);
                         }
                         out.write(String.valueOf(output));
                         output = j;
                         for(int n = String.valueOf(j).length();n <digits;n++){
-                            out.write(0);
+                            out.write((char)48);
                         }
-                        out.write(String.valueOf(j));
+                        out.write(String.valueOf(output));
                     }
                 }
             }
-            out.write(-1);
+            out.write((char)45);
+            out.write((char)49);
 
-            out.write(-2);
+            out.write((char)45);
+            out.write((char)50);
             out.close();
         }catch (IOException e){
             e.printStackTrace();
         }
 
     }
-    public void complement(int i){
+    public String[] stringout(){
+         int digits;
+         ArrayList List = new ArrayList();
+         digits = String.valueOf(length).length();
 
+         for(int i = 0;i < length; i++){
+             if(collection.get(i).getDegree() > 0){
+                 continue;
+             }
+            for (int n = String.valueOf(i).length() ;n < digits ;n++){
+                 List.add(0);
+            }
+            List.add(i);
+         }
+         List.add(-1);
+         for (int i = 0; i < length; i++) {
+            if(collection.get(i).getDegree() == 0){
+                continue;
+             }
+             for (int j = i; j < length; j++) {
+                 if(collection.get(i).matrix[j] > 0) {
+                     for(int n = String.valueOf(i).length();n <digits;n++){
+                         List.add(0);
+                     }
+                     List.add(i);
+                     for(int n = String.valueOf(j).length();n <digits;n++){
+                         List.add(0);
+                     }
+                     List.add(j);
+                }
+            }
+         }
+         List.add(-1);
+         String[] value = (String[]) List.toArray(new String[List.size()]);
+         return value;
     }
 //    public static void main(String Args[]){
 //         webconstruct test = new webconstruct(5);

@@ -22,7 +22,7 @@ public class webconstruct {
                 }
             }
             gragh.prt();
-            WriteinFile();
+            gragh.standaroutput();
         }
     }
     void WSWebConfig(int k,double d ){
@@ -132,6 +132,8 @@ public class webconstruct {
 //        test3.BAWebConfig(10,9990,10);
         long endTime=System.nanoTime();
         test.gragh.prt();
+        ClosenessCentrality test2 = new ClosenessCentrality(test.gragh);
+        test2.dismiss();
         System.out.println("the time is  "+(endTime-startTime)+"ns");
     }
 }

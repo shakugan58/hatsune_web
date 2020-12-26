@@ -8,7 +8,7 @@ public class EigenvectorCentrality extends DismissMethod{
         for(int i = 0;i < gragh.length ;i++){
             gragh.setEigenvectorAtribute();
             int index  = findTheLargestNumberInArray(gragh.getDegreeAttribute());
-            gragh.deleteOneNote(i);
+            gragh.deleteOneNote(index);
         }
     }
 }
