@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="js/echarts.js"></script>
+    <script type="text/javascript" src="js/dat.gui.min.js"></script>
+    <script type="text/javascript" src="js/dat.gui.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <title>NETWORK CHANGING</title>
+    <link href="css/multiColumnTemplate.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/pop_win_default.css" />
+    <link rel="stylesheet" type="text/css" href="css/pop_win_component.css" />
+    <script src="js/this_animation.js"></script>
+</head>
+<body>
+<div id="spinner">
+    <div class="scene">
+        <div class="wrap">
+            <div class="wall wall-right"></div>
+            <div class="wall wall-left"></div>
+            <div class="wall wall-top"></div>
+            <div class="wall wall-bottom"></div>
+            <div class="wall wall-back"></div>
+        </div>
+        <div class="wrap">
+            <div class="wall wall-right"></div>
+            <div class="wall wall-left"></div>
+            <div class="wall wall-top"></div>
+            <div class="wall wall-bottom"></div>
+            <div class="wall wall-back"></div>
+        </div>
+    </div>
+</div>
+<div id="xoxo"></div>
+<div id="container_id" class="container">
+    <section class="section">
+        <div id = "left_article_id" class="left_article">
+            <div id="macroStatsView" class="macro-stats-view" >
+                <ul class="macro-stats-list" id="macro_stats_data">
+                    <li>
+                        <ul id="title" class="stat-list">
+                            <li id="title-name" class="stat-name">-----参数指标变化-----</li>
+                        </ul></li>
+                    <p></p>
+                    <li>
+                        <ul id="degreeDis" class="stat-list">
+                            <li id="degreeDis-name" class="stat-name">度分布：</li>
+                            <div id = "filedesign">
+                                <div class="container2">
+                                    <div class="main clearfix">
+                                        <div class="column">
+                                            <button class="md-trigger" data-modal="modal-13">点击查看</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul></li>
+                    <p></p>
+                    <p></p>
+                    <li>
+                        <ul id="ave_pathlegth" class="stat-list">
+                            <li id="ave_pathlegth-name" class="stat-name">平均路径长度：</li>
+                            <li id="ave_pathlegth-count" class="stat stat-count">0</li>
+                        </ul></li>
+                    <p></p>
+                    <li>
+                        <ul id="Clustering_coefficient" class="stat-list">
+                            <li id="Clustering_coefficient-name" class="stat-name">聚类系数：</li>
+                            <li id="Clustering_coefficient-count" class="stat stat-count">0.000</li>
+                        </ul></li>
+                    <p></p>
+                    <li>
+                        <ul id="Nodes_num" class="stat-list">
+                            <li id="Nodes_num-name" class="stat-name">当前点数：</li>
+                            <li id="Nodes_num-count" class="stat stat-count">0</li>
+                        </ul></li>
+                    <p></p>
+                    <li>
+                        <ul id="Edge_num" class="stat-list">
+                            <li id="Edge_num-name" class="stat-name">当前边数：</li>
+                            <li id="Edge_num-count" class="stat stat-count">0</li>
+                        </ul></li>
+                    <p></p>
+                    <li>
+                        <ul id="current_frame" class="stat-list">
+                            <li id="current_frame-name" class="stat-name">当前帧数：</li>
+                            <li id="current_frame-count" class="stat stat-count">0</li>
+                        </ul></li>
+                    <p></p>
+
+
+                </ul>
+            </div>
+            <div class="button2">
+                <button id="button2"  onclick="cont_stop_Time()">暂停/继续</button>
+            </div>
+            <div class="button1">
+                <button id="button1" onclick="reset()">开始/重置</button>
+            </div>
+        </div>
+        <aside id="right_article_id" class="right_article">
+            <div id="main" style="width: 97%;height:800px;"></div>
+        </aside>
+    </section>
+    <footer class="secondary_header footer">
+        <div class="copyright">
+
+            在线网络演化可视化系统V1.1 <strong>&nbsp;</strong> </div>
+    </footer>
+</div>
+<div id = "background_id" class = "background" style="width: 100%;z-index:999;position:absolute;left:0px;top:0px;height: 950px;pointer-events:none">
+    <canvas id="canv"></canvas>
+</div>
+
+<div id = "graph" style="width: 40%;z-index:99;position:absolute;left:15%;top:0px;height: 200px;">
+    <div id="main2" style="width: 100%;height:100%;"></div>
+</div>
+
+
+<div class="md-modal md-effect-13" id="modal-13">
+    <div class="md-content">
+        <h3>度分布情况</h3>
+        <div>
+            <p>Now you can see the distribution of digrees</p>
+            <ul>
+                <li><strong>notice:</strong> it is a statistical chart .</li>
+
+            </ul>
+            <div id="sta_chart" style="width: 97%;height:250px;background:rgba(255,255,255,1.00)"></div>
+            <div class="md-closediv">
+                <button class="md-close">exit!</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="js/pop_win_classie.js"></script>
+<script src="js/pop_win_modalEffects.js"></script>
+<script type="text/javascript" src="js/this_animation.js"></script>
+<script type="text/javascript" src="js/this_echarts.js"></script>
+<script type="text/javascript" src="js/this_foreground.js"></script>
+<script type="text/javascript" src="js/this_gui.js"></script>
+</body>
+</html>
